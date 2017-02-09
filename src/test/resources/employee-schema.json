@@ -1,0 +1,19 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"title": "Employee",
+	"type": "object",
+	"properties": {
+		"id": {
+			"description": "The unique identifier for a product",
+			"type": "number",
+			"minimum": 0
+		},
+		"name": {
+			"type": "string"
+		}
+	},
+	"required": [
+		"id",
+		"name"
+	]
+}

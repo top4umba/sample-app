@@ -5,6 +5,7 @@ import static io.restassured.RestAssured.given
 import static io.restassured.RestAssured.with
 import static org.hamcrest.CoreMatchers.equalTo
 import static org.hamcrest.Matchers.greaterThan
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath
 
 import org.junit.Before
 import org.junit.Test
@@ -47,7 +48,15 @@ class EmployeeRestIntegrationTest {
 			.body("id", greaterThan (0))
 	}
 	
-	
+	@Test
+	void shouldRespondWithCorrectSchema(){
+		def employee = new Employee(name: "Mikhail Tian")
+		long id = postAndGetIdOf employee
+		
+		get("api/employee/${id}")
+		.then().assertThat()
+			.body(matchesJsonSchemaInClasspath("employee-schema.json"))
+	}
 	
 	@Test
 	void shouldUpdateEmployee(){
